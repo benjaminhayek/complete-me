@@ -30,8 +30,10 @@ describe('TRIE', () => {
   it('should insert word when calling insert', () => {
     trie.insert('help')
     trie.insert('hello')
+    trie.insert('hire')
+    let h = new Node ('h')
     console.log(JSON.stringify(trie, null, 4))
-    expect(trie.root.children.letter).to.equal('h')
+    expect(trie.root).to.equal('h')
   });
 
 })
