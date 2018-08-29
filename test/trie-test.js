@@ -27,12 +27,27 @@ describe('TRIE', () => {
     expect(trie.count()).to.equal(1);
   });
 
-it('should create new branch for each new first letter', () => {
-    trie.insert ('help');
-    trie.insert ('cool');
-    trie.insert ('poop');
+  it('should insert a word by invoking the insert method', () => {
+    trie.insert('hello');
+    trie.insert('cool');
+    trie.insert('poop');
+    expect(trie.root).to.have.property('h') 
+    expect(trie.root).to.have.property('c') 
+    expect(trie.root).to.have.property('p') 
+  });
+  
+  it('should suggest as array of words', () => {
+    trie.insert('hello');
+    trie.insert('help');
+    trie.insert('poop');
+    let response = trie.suggest('h');
     console.log(JSON.stringify(trie, null, 4))
-    expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
+    expect(response).to.deep.eq(['hello', 'help'])
+  });
+
+  it('should populate with words', () => {
+    trie.populate(dictionary);
+    expect(trie.totalWords).to.equal(235886)
   })
 
 })
