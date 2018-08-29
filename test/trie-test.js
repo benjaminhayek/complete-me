@@ -27,13 +27,12 @@ describe('TRIE', () => {
     expect(trie.count()).to.equal(1);
   });
 
-  it('should insert word when calling insert', () => {
-    trie.insert('help')
-    trie.insert('hello')
-    trie.insert('hire')
-    let h = new Node ('h')
+it('should create new branch for each new first letter', () => {
+    trie.insert ('help');
+    trie.insert ('cool');
+    trie.insert ('poop');
     console.log(JSON.stringify(trie, null, 4))
-    expect(trie.root).to.equal('h')
-  });
+    expect(Object.keys(trie.root.children)).to.deep.eq([ 'h', 'c', 'p' ])
+  })
 
 })
