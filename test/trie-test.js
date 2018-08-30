@@ -1,7 +1,7 @@
 import { expect } from'chai';
 import Trie from '../lib/trie';
-import Node from '../lib/Node';
 import fs from 'fs';
+require('locus');
 
 describe('TRIE', () => {
   let trie;
@@ -20,10 +20,6 @@ describe('TRIE', () => {
     expect(trie.totalWords).to.equal(0)
   });
 
-  it('should default root to empty object', () => {
-    expect(trie.root.children).to.deep.equal({})
-  });
-
   it('should increase totalWords each time new word is instantiated', () => {
     expect(trie.count()).to.equal(0);
     trie.insert('poop')
@@ -40,17 +36,17 @@ describe('TRIE', () => {
   });
   
   it('should suggest as array of words', () => {
-    trie.insert('hello');
-    trie.insert('help');
+    trie.insert('collar');
+    trie.insert('collared');
 
-    let response = trie.suggest('he');
-    console.log(JSON.stringify(trie, null, 4))
-    expect(response).to.deep.eq(['hello', 'help'])
+    let response = trie.suggest('c');
+
+    expect(response).to.deep.eq(['collar', 'collared'])
   });
 
   it('should populate with words', () => {
     trie.populate(dictionary);
     expect(trie.totalWords).to.equal(235886)
-  })
+  });
 
 })
