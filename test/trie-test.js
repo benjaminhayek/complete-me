@@ -1,9 +1,12 @@
 import { expect } from'chai';
 import Trie from '../lib/trie';
-import Node from '../lib/Node';
+import fs from 'fs';
+require('locus');
 
 describe('TRIE', () => {
   let trie;
+  const text = "/usr/share/dict/words";
+  const dictionary = fs.readFileSync(text).toString().trim().split('\n');
 
   beforeEach( () => {
     trie = new Trie();
@@ -15,10 +18,6 @@ describe('TRIE', () => {
 
   it('should default count to zero', () => {
     expect(trie.totalWords).to.equal(0)
-  });
-
-  it('should default root to empty object', () => {
-    expect(trie.root.children).to.deep.equal({})
   });
 
   it('should increase totalWords each time new word is instantiated', () => {
@@ -37,17 +36,17 @@ describe('TRIE', () => {
   });
   
   it('should suggest as array of words', () => {
-    trie.insert('hello');
-    trie.insert('help');
-    trie.insert('poop');
-    let response = trie.suggest('h');
-    console.log(JSON.stringify(trie, null, 4))
-    expect(response).to.deep.eq(['hello', 'help'])
+    trie.insert('collar');
+    trie.insert('collared');
+
+    let response = trie.suggest('c');
+
+    expect(response).to.deep.eq(['collar', 'collared'])
   });
 
   it('should populate with words', () => {
     trie.populate(dictionary);
     expect(trie.totalWords).to.equal(235886)
-  })
+  });
 
 })
